@@ -90,22 +90,14 @@
   # cluster, this means that only ONE of the urls will be written to each interval.
   # urls = ["udp://localhost:8089"] # UDP endpoint example
   urls = [ "{{ telegraf_influxdb_urls|join('","') }}" ] # required
-  # The target database for metrics (telegraf will create it if not exists)
-  database = "{{ telegraf_influxdb_database }}" # required
-  # Precision of writes, valid values are n, u, ms, s, m, and h
-  # note: using second precision greatly helps InfluxDB compression
-  precision = "{{ telegraf_influxdb_precision }}"
-
-  ## Retention policy to write to.
-  retention_policy = "{{ telegraf_influxdb_retention_policy }}"
-  ## Write consistency (clusters only), can be: "any", "one", "quorom", "all"
-  write_consistency = "{{ telegraf_influxdb_write_consistency }}"
-
-  # Connection timeout (for the connection with InfluxDB), formatted as a string.
-  # If not provided, will default to 0 (no timeout)
-  timeout = "{{ telegraf_influxdb_timeout }}"
 {% if telegraf_influxdb_token is defined and telegraf_influxdb_token != None %}
   token = "{{ telegraf_influxdb_token }}"
+{% endif %}
+{% if telegraf_influxdb_org is defined and telegraf_influxdb_org != None %}
+  organization = "{{ telegraf_influxdb_org }}"
+{% endif %}
+{% if telegraf_influxdb_bucket is defined and telegraf_influxdb_bucket != None %}
+  bucket = "{{ telegraf_influxdb_bucket }}"
 {% endif %}
 {% if telegraf_influxdb_username is defined and telegraf_influxdb_username != None %}
   username = "{{ telegraf_influxdb_username }}"
