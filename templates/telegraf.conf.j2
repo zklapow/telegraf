@@ -84,7 +84,7 @@
 [outputs]
 
 # Configuration for influxdb server to send metrics to
-[[outputs.influxdb]]
+[[outputs.influxdb_v2]]
   # The full HTTP or UDP endpoint URL for your InfluxDB instance.
   # Multiple urls can be specified but it is assumed that they are part of the same
   # cluster, this means that only ONE of the urls will be written to each interval.
@@ -104,6 +104,9 @@
   # Connection timeout (for the connection with InfluxDB), formatted as a string.
   # If not provided, will default to 0 (no timeout)
   timeout = "{{ telegraf_influxdb_timeout }}"
+{% if telegraf_influxdb_token is defined and telegraf_influxdb_token != None %}
+  token = "{{ telegraf_influxdb_token }}"
+{% endif %}
 {% if telegraf_influxdb_username is defined and telegraf_influxdb_username != None %}
   username = "{{ telegraf_influxdb_username }}"
 {% endif %}
